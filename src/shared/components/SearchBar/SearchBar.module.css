@@ -1,17 +1,17 @@
-.form{
+.form {
   display: flex;
   justify-content: space-between;
 }
-.input{
+.input {
   width: 400px;
 }
-.searchButton{
+.searchButton {
   width: 148px;
 }
-.addCourseButton{
+.addCourseButton {
   width: 183px;
 }
-.searchField{
+.searchField {
   display: flex;
   gap: 16px;
 }

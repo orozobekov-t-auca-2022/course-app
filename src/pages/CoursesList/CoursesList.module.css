@@ -1,4 +1,4 @@
-.coursesList{
+.coursesList {
   max-width: 1122px;
   margin: 0 auto;
   display: flex;
@@ -6,10 +6,10 @@
   gap: 33px;
   padding: 70px 0;
 }
-.addCourseButton{
+.addCourseButton {
   width: 183px;
 }
-.controls{
+.controls {
   display: flex;
   justify-content: space-between;
 }
