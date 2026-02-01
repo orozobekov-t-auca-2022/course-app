@@ -3,9 +3,11 @@ import { Button } from '@mui/material';
 function CourseButton({
   children,
   className,
+  onClick,
 }: {
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }) {
   return (
     <Button
@@ -16,6 +18,7 @@ function CourseButton({
         textTransform: 'uppercase',
         height: '50px',
       }}
+      onClick={onClick}
     >
       {children}
     </Button>

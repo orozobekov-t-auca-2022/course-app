@@ -1,14 +1,8 @@
+import { mockedAuthorsList } from '../../../mocks/mockCoursesList';
+import type { CourseProps } from '../../../types/types';
 import CourseButton from '../CourseButton/CourseButton';
 import CourseInfoDetail from '../CourseInfoDetail/CourseInfoDetail';
 import styles from './CourseCard.module.css';
-
-export interface CourseProps {
-  title: string;
-  description: string;
-  authors: string[];
-  duration: string;
-  creationDate: string;
-}
 
 function CourseCard({
   title,
@@ -16,8 +10,16 @@ function CourseCard({
   authors,
   duration,
   creationDate,
-}: CourseProps) {
-  const authorsList = authors.join(', ');
+  onClick,
+}: CourseProps & { onClick?: () => void }) {
+  const authorsList = authors
+    .map(
+      (author) =>
+        mockedAuthorsList.find((mockedAuthor) => mockedAuthor.id === author)
+          ?.name
+    )
+    .join(', ');
+
   return (
     <div className={styles.course}>
       <h2>{title}</h2>
@@ -32,7 +34,7 @@ function CourseCard({
           </div>
 
           <div className={styles.buttons}>
-            <CourseButton className={styles.showCourseButton}>
+            <CourseButton className={styles.showCourseButton} onClick={onClick}>
               Show Course
             </CourseButton>
             <CourseButton className={styles.deleteButton}>

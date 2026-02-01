@@ -1,0 +1,9 @@
+.courseInfoCard {
+  background-color: rgba(255, 255, 255, 1);
+}
+.courseDetails {
+  display: flex;
+}
+.description {
+  max-width: 487px;
+}
