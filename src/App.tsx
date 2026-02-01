@@ -1,5 +1,5 @@
 import './App.css';
-import CoursesList from './pages/CoursesList/CoursesList';
+import CoursesList from './pages/Courses/CoursesList';
 import Header from './shared/components/Header/Header';
 import './App.css';
 import { mockCurrentCoursesList } from './mocks/mockCoursesList';

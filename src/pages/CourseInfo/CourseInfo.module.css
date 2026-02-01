@@ -4,7 +4,8 @@
   gap: 23px;
 }
 
-.courseInfo {
+.courseInfo,
+.title {
   max-width: 100%;
   width: 1122px;
   margin: 0 auto;
@@ -14,6 +15,9 @@
   width: 100%;
   display: flex;
   justify-content: right;
+  max-width: 100%;
+  width: 1122px;
+  margin: 0 auto;
 }
 
 .backButton {

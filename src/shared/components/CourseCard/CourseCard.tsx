@@ -24,6 +24,11 @@ function CourseCard({
     )
     .join(', ');
 
+  const formatedDuration =
+    Math.floor(duration / 60) + ':' + (duration % 60) + ' hours';
+
+  const formatedDate = creationDate.replaceAll('/', '.');
+
   return (
     <div className={styles.course}>
       <h2>{title}</h2>
@@ -33,8 +38,8 @@ function CourseCard({
         <div className={styles.information}>
           <div className={styles.details}>
             <CourseInfoDetail title="Authors: " value={authorsList} />
-            <CourseInfoDetail title="Duration: " value={duration} />
-            <CourseInfoDetail title="Created: " value={creationDate} />
+            <CourseInfoDetail title="Duration: " value={formatedDuration} />
+            <CourseInfoDetail title="Created: " value={formatedDate} />
           </div>
 
           <div className={styles.buttons}>

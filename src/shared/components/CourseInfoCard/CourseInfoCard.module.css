@@ -17,29 +17,7 @@
   border: 1px solid rgba(207, 207, 207, 1);
   height: auto;
 }
-.title {
-  font-weight: 700;
-  font-style: Bold;
-  font-size: 20px;
-  line-height: 32px;
-  letter-spacing: 0px;
-  text-transform: capitalize;
-  width: 96px;
-}
-.infoRow {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-}
-.infoValue {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  letter-spacing: 0px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
+
 .courseInfo {
   display: flex;
   flex-direction: column;

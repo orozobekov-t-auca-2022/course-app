@@ -15,8 +15,7 @@ function CourseInfo({
 }) {
   const course = mockCurrentCoursesList.find(
     (course) => course.id === selectedCourseId
-  )?.title;
-  console.log(course);
+  );
 
   if (!course) {
     return null;
@@ -24,9 +23,17 @@ function CourseInfo({
 
   return (
     <div className={styles.courseInfoPage}>
-      <CourseInfoTitle title={course} />
+      <div className={styles.title}>
+        <CourseInfoTitle title={course.title} />
+      </div>
       <div className={styles.courseInfo}>
-        <CourseInfoCard />
+        <CourseInfoCard
+          id={course.id}
+          description={course.description}
+          authors={course.authors}
+          duration={course.duration}
+          creationDate={course.creationDate}
+        />
       </div>
       <div className={styles.buttonContainer}>
         <CourseButton
