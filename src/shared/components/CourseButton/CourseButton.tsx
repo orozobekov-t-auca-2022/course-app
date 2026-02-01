@@ -4,10 +4,12 @@ function CourseButton({
   children,
   className,
   onClick,
+  type,
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  type?: 'submit' | 'button' | 'reset';
 }) {
   return (
     <Button
@@ -19,6 +21,7 @@ function CourseButton({
         height: '50px',
       }}
       onClick={onClick}
+      type={type}
     >
       {children}
     </Button>
