@@ -1,16 +1,16 @@
-.courseInfoPage{
+.courseInfoPage {
   display: flex;
   flex-direction: column;
   gap: 23px;
 }
 
-.courseInfo{
+.courseInfo {
   max-width: 100%;
   width: 1122px;
   margin: 0 auto;
 }
 
-.buttonContainer{
+.buttonContainer {
   width: 100%;
   display: flex;
   justify-content: right;

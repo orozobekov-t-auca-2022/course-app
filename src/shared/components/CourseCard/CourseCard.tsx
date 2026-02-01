@@ -5,13 +5,17 @@ import CourseInfoDetail from '../CourseInfoDetail/CourseInfoDetail';
 import styles from './CourseCard.module.css';
 
 function CourseCard({
+  id,
   title,
   description,
   authors,
   duration,
   creationDate,
   onClick,
-}: CourseProps & { onClick?: () => void }) {
+  onDeleteCourse,
+}: CourseProps & { onClick?: () => void } & {
+  onDeleteCourse: (id: string) => void;
+}) {
   const authorsList = authors
     .map(
       (author) =>
@@ -37,7 +41,10 @@ function CourseCard({
             <CourseButton className={styles.showCourseButton} onClick={onClick}>
               Show Course
             </CourseButton>
-            <CourseButton className={styles.deleteButton}>
+            <CourseButton
+              className={styles.deleteButton}
+              onClick={() => onDeleteCourse(id)}
+            >
               <svg
                 width="25"
                 height="25"

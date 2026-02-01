@@ -1,27 +1,18 @@
-import type { CourseProps } from '../../../types/types';
+import { useRef } from 'react';
 import CourseButton from '../CourseButton/CourseButton';
 import SearchInput from '../SearchInput/SearchInput';
 import styles from './SearchBar.module.css';
 
 function SearchBar({
-  setFilteredList,
-  courses,
+  setSearchTerm,
 }: {
-  setFilteredList: React.Dispatch<React.SetStateAction<CourseProps[]>>;
-  courses: CourseProps[];
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    const searchTerm = (
-      event.currentTarget.elements[0] as HTMLInputElement
-    ).value.toLowerCase();
-    setFilteredList(
-      courses.filter(
-        (course) =>
-          course.title.toLowerCase().includes(searchTerm) ||
-          course.description.toLowerCase().includes(searchTerm)
-      )
-    );
+    setSearchTerm(inputRef.current?.value || '');
   }
 
   return (

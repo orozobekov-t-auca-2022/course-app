@@ -1,5 +1,4 @@
 .courseInfoCard {
-  
   background-color: rgba(255, 255, 255, 1);
   padding: 53px 0 77px 64px;
 }
@@ -13,7 +12,7 @@
   font-size: 16px;
   line-height: 20px;
 }
-.separator{
+.separator {
   margin: 0 32px;
   border: 1px solid rgba(207, 207, 207, 1);
   height: auto;
@@ -38,7 +37,7 @@
   line-height: 20px;
   letter-spacing: 0px;
 }
-.courseInfo{
+.courseInfo {
   display: flex;
   flex-direction: column;
   gap: 16px;
