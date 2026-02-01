@@ -1,4 +1,22 @@
+.courseInfoPage{
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+}
+
 .courseInfo{
-  max-width: 1122px;
-  margin: 0 auto;  
+  max-width: 100%;
+  width: 1122px;
+  margin: 0 auto;
+}
+
+.buttonContainer{
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+
+.backButton {
+  width: 185px;
+  margin-left: auto;
 }

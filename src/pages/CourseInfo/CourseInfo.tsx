@@ -28,11 +28,14 @@ function CourseInfo({
       <div className={styles.courseInfo}>
         <CourseInfoCard />
       </div>
-      <CourseButton
-        onClick={() => setCurrentPage({ currentPage: 'coursesList' })}
-      >
-        Back
-      </CourseButton>
+      <div className={styles.buttonContainer}>
+        <CourseButton
+          onClick={() => setCurrentPage({ currentPage: 'coursesList' })}
+          className={styles.backButton}
+        >
+          Back
+        </CourseButton>
+      </div>
     </div>
   );
 }

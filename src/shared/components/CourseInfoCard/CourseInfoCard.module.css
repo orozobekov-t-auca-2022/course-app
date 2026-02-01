@@ -1,9 +1,45 @@
 .courseInfoCard {
+  
   background-color: rgba(255, 255, 255, 1);
+  padding: 53px 0 77px 64px;
 }
 .courseDetails {
   display: flex;
+  margin-top: 25px;
 }
 .description {
   max-width: 487px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+.separator{
+  margin: 0 32px;
+  border: 1px solid rgba(207, 207, 207, 1);
+  height: auto;
+}
+.title {
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: 0px;
+  text-transform: capitalize;
+  width: 96px;
+}
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.infoValue {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0px;
+}
+.courseInfo{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

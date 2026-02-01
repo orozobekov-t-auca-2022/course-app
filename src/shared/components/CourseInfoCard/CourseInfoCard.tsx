@@ -16,22 +16,25 @@ function CourseInfoCard() {
           more recently with desktop publishing software like Aldus PageMaker
           including versions of Lorem Ipsum.
         </p>
-        <div>
-          <div>
-            <h3>ID:</h3>
-            <span>231j3j-b34g5-b345m</span>
+        <hr className={styles.separator} />
+        <div className={styles.courseInfo}>
+          <div className={styles.infoRow}>
+            <h3 className={styles.title}>ID:</h3>
+            <span className={styles.infoValue}>231j3j-b34g5-b345m</span>
           </div>
-          <div>
-            <h3>Duration:</h3>
-            <span>23:35 hours</span>
+          <div className={styles.infoRow}>
+            <h3 className={styles.title}>Duration:</h3>
+            <span className={styles.infoValue}>23:35 hours</span>
           </div>
-          <div>
-            <h3>Created:</h3>
-            <span>01.01.2023</span>
+          <div className={styles.infoRow}>
+            <h3 className={styles.title}>Created:</h3>
+            <span className={styles.infoValue}>01.01.2023</span>
           </div>
-          <div>
-            <h3>Authors:</h3>
-            <span>Anna Sidorenko, Valentina Larina</span>
+          <div className={styles.infoRow}>
+            <h3 className={styles.title}>Authors:</h3>
+            <span className={styles.infoValue}>
+              Anna Sidorenko, Valentina Larina
+            </span>
           </div>
         </div>
       </div>
