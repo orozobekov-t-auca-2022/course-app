@@ -18,7 +18,11 @@ function SearchBar({
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.searchField}>
-        <SearchInput className={styles.input} placeholder="Input text" />
+        <SearchInput
+          ref={inputRef}
+          className={styles.input}
+          placeholder="Input text"
+        />
         <CourseButton className={styles.searchButton} type="submit">
           Search
         </CourseButton>
