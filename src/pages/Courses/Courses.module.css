@@ -1,0 +1,14 @@
+.coursesList {
+  max-width: 1122px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 33px;
+}
+.addCourseButton {
+  width: 183px;
+}
+.controls {
+  display: flex;
+  justify-content: space-between;
+}

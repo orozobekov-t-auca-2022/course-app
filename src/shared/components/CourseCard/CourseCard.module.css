@@ -1,0 +1,36 @@
+.course {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 21px 31px 36px 31px;
+}
+.courseContent {
+  display: flex;
+  gap: 47px;
+  margin-top: 10px;
+}
+.description {
+  max-width: 677px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0px;
+}
+
+.editButton,
+.deleteButton {
+  width: 61px;
+}
+.showCourseButton {
+  width: 180px;
+}
+.buttons {
+  display: flex;
+  gap: 11px;
+  flex-wrap: wrap;
+}
+.information {
+  display: flex;
+  flex-direction: column;
+  gap: 31px;
+}

@@ -1,0 +1,13 @@
+.infoRow {
+  display: flex;
+}
+.infoTitle {
+  font-weight: 700px;
+  font-size: 16px;
+}
+.infoValue {
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
