@@ -7,7 +7,7 @@ export interface CourseProps {
   creationDate: string;
 }
 
-export interface CoursesListProps {
+export interface CoursesProps {
   courses?: CourseProps[];
 }
 

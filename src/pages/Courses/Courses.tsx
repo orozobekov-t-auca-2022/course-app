@@ -1,20 +1,16 @@
-import CourseCard from '../../shared/components/CourseCard/CourseCard';
 import CourseButton from '../../shared/components/CourseButton/CourseButton';
 import SearchBar from '../../shared/components/SearchBar/SearchBar';
-import styles from './CoursesList.module.css';
-import type {
-  CourseProps,
-  CoursesListProps,
-  CurrentPageProps,
-} from '../../types/types';
+import styles from './Courses.module.css';
+import type { CoursesProps, CurrentPageProps } from '../../types/types';
 import { useState } from 'react';
+import CoursesList from '../../shared/components/CoursesList/CoursesList';
 
-function CoursesList({
+function Courses({
   courses,
   setSelectedCourseId,
   setCurrentPage,
   onDeleteCourse,
-}: CoursesListProps & {
+}: CoursesProps & {
   setSelectedCourseId: React.Dispatch<React.SetStateAction<string | null>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<CurrentPageProps>>;
   onDeleteCourse: (id: string) => void;
@@ -37,20 +33,14 @@ function CoursesList({
           Add New Course
         </CourseButton>
       </div>
-      {filteredList?.map((course: CourseProps) => (
-        <div key={course.id} style={{ marginBottom: '20px' }}>
-          <CourseCard
-            {...course}
-            onClick={() => {
-              setSelectedCourseId(course.id);
-              setCurrentPage({ currentPage: 'courseInfo' });
-            }}
-            onDeleteCourse={onDeleteCourse}
-          />
-        </div>
-      ))}
+      <CoursesList
+        filteredList={filteredList}
+        setCurrentPage={setCurrentPage}
+        setSelectedCourseId={setSelectedCourseId}
+        onDeleteCourse={onDeleteCourse}
+      />
     </div>
   );
 }
 
-export default CoursesList;
+export default Courses;

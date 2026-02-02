@@ -1,8 +1,11 @@
 import './App.css';
-import CoursesList from './pages/Courses/CoursesList';
+import Courses from './pages/Courses/Courses';
 import Header from './shared/components/Header/Header';
 import './App.css';
-import { mockCurrentCoursesList } from './mocks/mockCoursesList';
+import {
+  mockCurrentCoursesList,
+  mockedCoursesList,
+} from './mocks/mockCoursesList';
 import EmptyCoursesList from './pages/EmptyCoursesList/EmptyCoursesList';
 import { useEffect, useState } from 'react';
 import type { CourseProps, CurrentPageProps } from './types/types';
@@ -33,7 +36,7 @@ function App() {
   };
 
   const restoreCourse = () => {
-    setCourses(mockCurrentCoursesList);
+    setCourses(mockedCoursesList);
   };
 
   return (
@@ -45,7 +48,7 @@ function App() {
         ) : (
           <>
             {currentPage.currentPage === 'coursesList' ? (
-              <CoursesList
+              <Courses
                 courses={courses}
                 setSelectedCourseId={setSelectedCourseId}
                 setCurrentPage={setCurrentPage}
