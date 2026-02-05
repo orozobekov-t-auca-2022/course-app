@@ -10,6 +10,7 @@ import EmptyCoursesList from './pages/EmptyCoursesList/EmptyCoursesList';
 import { useEffect, useState } from 'react';
 import type { CourseProps, CurrentPageProps } from './types/types';
 import CourseInfo from './pages/CourseInfo/CourseInfo';
+import Login from './pages/Login/Login';
 
 const STORAGE_KEY = 'courses';
 
@@ -24,6 +25,8 @@ function App() {
     const storedCourses = localStorage.getItem(STORAGE_KEY);
     return storedCourses ? JSON.parse(storedCourses) : mockCurrentCoursesList;
   });
+
+  const [userLoggedIn, setUserLoggedIn] = useState<string | null>(null);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
@@ -41,27 +44,40 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header
+        userLoggedIn={userLoggedIn}
+        setUserLoggedIn={setUserLoggedIn}
+        setCurrentPage={setCurrentPage}
+      />
       <div className="content">
-        {courses.length === 0 ? (
-          <EmptyCoursesList onRestore={restoreCourse} />
-        ) : (
+        {userLoggedIn || currentPage.currentPage === 'login' ? (
           <>
-            {currentPage.currentPage === 'coursesList' ? (
-              <Courses
-                courses={courses}
-                setSelectedCourseId={setSelectedCourseId}
-                setCurrentPage={setCurrentPage}
-                onDeleteCourse={deleteCourse}
-              />
+            {courses.length === 0 ? (
+              <EmptyCoursesList onRestore={restoreCourse} />
             ) : (
-              <CourseInfo
-                selectedCourseId={selectedCourseId}
-                mockCurrentCoursesList={courses}
-                setCurrentPage={setCurrentPage}
-              />
+              <>
+                {currentPage.currentPage === 'coursesList' ? (
+                  <Courses
+                    courses={courses}
+                    setSelectedCourseId={setSelectedCourseId}
+                    setCurrentPage={setCurrentPage}
+                    onDeleteCourse={deleteCourse}
+                  />
+                ) : (
+                  <CourseInfo
+                    selectedCourseId={selectedCourseId}
+                    mockCurrentCoursesList={courses}
+                    setCurrentPage={setCurrentPage}
+                  />
+                )}
+              </>
             )}
           </>
+        ) : (
+          <Login
+            setUserLoggedIn={setUserLoggedIn}
+            setCurrentPage={setCurrentPage}
+          />
         )}
       </div>
     </>

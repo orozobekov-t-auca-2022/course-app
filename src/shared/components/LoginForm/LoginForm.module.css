@@ -1,0 +1,8 @@
+.button{
+  width: 286px;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 34px
+}
