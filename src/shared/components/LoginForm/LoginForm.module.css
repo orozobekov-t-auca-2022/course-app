@@ -6,3 +6,6 @@
   flex-direction: column;
   gap: 34px
 }
+.error{
+  color: rgba(255, 0, 0, 1);
+}

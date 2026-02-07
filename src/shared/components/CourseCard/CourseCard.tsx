@@ -1,4 +1,4 @@
-import { mockedAuthorsList } from '../../../mocks/mockCoursesList';
+import { useEffect, useState } from 'react';
 import type { CourseProps } from '../../../types/types';
 import CourseButton from '../CourseButton/CourseButton';
 import CourseInfoDetail from '../CourseInfoDetail/CourseInfoDetail';
@@ -16,18 +16,38 @@ function CourseCard({
 }: CourseProps & { onClick?: () => void } & {
   onDeleteCourse: (id: string) => void;
 }) {
-  const authorsList = authors
-    .map(
-      (author) =>
-        mockedAuthorsList.find((mockedAuthor) => mockedAuthor.id === author)
-          ?.name
-    )
-    .join(', ');
+  const loadAuthor = async (authorId: string) => {
+    const response = await fetch(
+      `${import.meta.env.VITE_DUMMY_AUTHORS_API}/${authorId}`
+    );
+    const data = await response.json();
+    return data.name;
+  };
+
+  const [authorsList, setAuthorsList] = useState<string>('');
+
+  useEffect(() => {
+    const fetchAuthors = async () => {
+      try {
+        const authorNames = await Promise.all(
+          authors.map((author) => loadAuthor(author))
+        );
+        setAuthorsList(authorNames.join(', '));
+      } catch (error) {
+        console.error('Failed to load authors:', error);
+        setAuthorsList('Unknown Authors');
+      }
+    };
+
+    fetchAuthors();
+  }, [authors]);
 
   const formatedDuration =
     Math.floor(duration / 60) + ':' + (duration % 60) + ' hours';
 
-  const formatedDate = creationDate.replaceAll('/', '.');
+  const formatedDate = new Date(creationDate)
+    .toLocaleDateString('en-GB')
+    .replaceAll('/', '.');
 
   return (
     <div className={styles.course}>

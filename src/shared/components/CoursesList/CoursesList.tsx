@@ -1,17 +1,19 @@
-import type { CourseProps, CoursesProps } from '../../../types/types';
+import type {
+  CourseProps,
+  CoursesProps,
+  CurrentPageProps,
+} from '../../../types/types';
 import CourseCard from '../CourseCard/CourseCard';
 
 function CoursesList({
   filteredList,
-  setCurrentPage,
-  setSelectedCourseId,
   onDeleteCourse,
+  getCourse,
 }: { filteredList: CourseProps[] | undefined } & CoursesProps & {
     setSelectedCourseId: React.Dispatch<React.SetStateAction<string | null>>;
-    setCurrentPage: React.Dispatch<
-      React.SetStateAction<{ currentPage: 'coursesList' | 'courseInfo' }>
-    >;
+    setCurrentPage: React.Dispatch<React.SetStateAction<CurrentPageProps>>;
     onDeleteCourse: (id: string) => void;
+    getCourse: (id: string) => Promise<CourseProps>;
   }) {
   return (
     <>
@@ -20,8 +22,7 @@ function CoursesList({
           <CourseCard
             {...course}
             onClick={() => {
-              setSelectedCourseId(course.id);
-              setCurrentPage({ currentPage: 'courseInfo' });
+              getCourse(course.id);
             }}
             onDeleteCourse={onDeleteCourse}
           />

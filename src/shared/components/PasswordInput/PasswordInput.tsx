@@ -6,18 +6,18 @@ function PasswordInput({
   label,
   type,
   placeholder,
-  pattern,
   value,
   onChange,
+  errorMessage,
 }: PasswordInputProps & {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
 }) {
-  console.log(pattern);
   return (
     <label
       htmlFor={htmlFor}
-      style={{ display: 'flex', flexDirection: 'column' }}
+      style={{ display: 'flex', flexDirection: 'column', width: '286px' }}
     >
       {label}
       <TextField
@@ -26,7 +26,22 @@ function PasswordInput({
         type={type}
         placeholder={placeholder}
         required
-        sx={{ width: '286px' }}
+        sx={{
+          width: '286px',
+          '& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline':
+            {
+              borderColor: 'rgba(255, 0, 0, 1)',
+            },
+          '& .MuiFormHelperText-root.Mui-error': {
+            color: 'rgba(255, 0, 0, 1)',
+          },
+          '& .MuiFormHelperText-root': {
+            marginLeft: 0,
+            marginRight: 0,
+          },
+        }}
+        error={Boolean(errorMessage)}
+        helperText={errorMessage}
         value={value}
         onChange={onChange}
       />

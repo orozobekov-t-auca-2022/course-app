@@ -5,11 +5,13 @@ function CourseButton({
   className,
   onClick,
   type,
+  disabled,
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
   type?: 'submit' | 'button' | 'reset';
+  disabled?: boolean;
 }) {
   return (
     <Button
@@ -22,6 +24,7 @@ function CourseButton({
       }}
       onClick={onClick}
       type={type}
+      disabled={disabled}
     >
       {children}
     </Button>
