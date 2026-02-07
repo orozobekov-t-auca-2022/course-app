@@ -8,6 +8,7 @@ import type {
 } from '../../types/types';
 import { useEffect, useState } from 'react';
 import CoursesList from '../../shared/components/CoursesList/CoursesList';
+import CourseFormModal from '../../shared/components/CourseFormModal/CourseFormModal';
 
 function Courses({
   courses,
@@ -23,6 +24,7 @@ function Courses({
 }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [coursesData, setCoursesData] = useState<typeof courses>(courses);
+  const [openCourseForm, setOpenCourseForm] = useState(false);
 
   async function loadCourses() {
     const response = await fetch(
@@ -52,7 +54,10 @@ function Courses({
     <div className={styles.coursesList}>
       <div className={styles.controls}>
         <SearchBar setSearchTerm={setSearchTerm} />
-        <CourseButton className={styles.addCourseButton}>
+        <CourseButton
+          className={styles.addCourseButton}
+          onClick={() => setOpenCourseForm(true)}
+        >
           Add New Course
         </CourseButton>
       </div>
@@ -63,6 +68,11 @@ function Courses({
         onDeleteCourse={onDeleteCourse}
         getCourse={getCourse}
       />
+      {openCourseForm && (
+        <div className={styles.courseFormModal}>
+          <CourseFormModal setOpenCourseForm={setOpenCourseForm} />
+        </div>
+      )}
     </div>
   );
 }
