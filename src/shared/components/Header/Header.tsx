@@ -1,7 +1,8 @@
-import logo from '../../../assets/logo.png';
 import styles from './Header.module.css';
 import CourseButton from '../CourseButton/CourseButton';
 import type { HeaderProps } from '../../../types/types';
+import Logo from './Logo';
+import UserName from './UserName';
 
 function Header({
   userLoggedIn,
@@ -14,16 +15,20 @@ function Header({
 }) {
   return (
     <nav className={styles.header}>
-      <img className={styles.logo} src={logo} alt="" />
+      <Logo />
       <div className={styles.userInfo}>
-        <h2 className={styles.userName}>Harry Potter</h2>
+        <UserName />
         <CourseButton
           className={styles.button}
-          onClick={() =>
-            userLoggedIn
-              ? setUserLoggedIn(null)
-              : setCurrentPage({ currentPage: 'login' })
-          }
+          onClick={() => {
+            if (userLoggedIn) {
+              setUserLoggedIn(null);
+              localStorage.setItem('userLoggedIn', '');
+              localStorage.setItem('userInfo', '');
+            } else {
+              setCurrentPage({ currentPage: 'login' });
+            }
+          }}
         >
           {userLoggedIn ? 'LOGOUT' : 'LOGIN'}
         </CourseButton>

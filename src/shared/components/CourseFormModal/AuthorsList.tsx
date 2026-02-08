@@ -1,14 +1,15 @@
 import AddAuthorToCourseButton from './AddAuthorToCourseButton';
 import RemoveFromAuthorsListButton from './RemoveFromAuthorsListButton';
+import type { AuthorProps } from './types';
 
 function AuthorsList({
   authors,
   onAddAuthor,
   onRemoveAuthor,
 }: {
-  authors: string[];
-  onAddAuthor: (authorName: string) => void;
-  onRemoveAuthor: (authorName: string) => void;
+  authors: AuthorProps[];
+  onAddAuthor: (author: AuthorProps) => void;
+  onRemoveAuthor: (author: AuthorProps) => void;
 }) {
   return (
     <div>
@@ -32,12 +33,11 @@ function AuthorsList({
                 whiteSpace: 'nowrap',
               }}
             >
-              {author}
+              {author.name}
             </p>
             <AddAuthorToCourseButton
               onClick={() => {
                 onAddAuthor(author);
-                onRemoveAuthor(author);
               }}
             />
             <RemoveFromAuthorsListButton

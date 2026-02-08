@@ -7,12 +7,15 @@ import DurationInput from './DurationInput';
 import TitleInput from './TitleInput';
 import styles from './CourseFormModal.module.css';
 import type { CourseProps } from '../../../types/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { AuthorProps } from './types';
 
 function CourseFormModal({
   setOpenCourseForm,
+  onCourseCreated,
 }: {
   setOpenCourseForm: React.Dispatch<React.SetStateAction<boolean>>;
+  onCourseCreated?: (course: CourseProps) => void;
 }) {
   const [courseInfo, setCourseInfo] = useState<CourseProps>({
     id: '',
@@ -22,8 +25,7 @@ function CourseFormModal({
     duration: 0,
     authors: [],
   });
-  const [authorsList, setAuthorsList] = useState<string[]>([]);
-  const [courseAuthors, setCourseAuthors] = useState<string[]>([]);
+  const [authorsList, setAuthorsList] = useState<AuthorProps[]>([]);
 
   const resetCourseInfo = () => {
     setCourseInfo({
@@ -35,7 +37,6 @@ function CourseFormModal({
       authors: [],
     });
     setAuthorsList([]);
-    setCourseAuthors([]);
   };
 
   const createCourse = async (course: CourseProps) => {
@@ -57,6 +58,9 @@ function CourseFormModal({
 
       const data = await response.json();
       console.log('Course created successfully:', data);
+      if (onCourseCreated) {
+        onCourseCreated(data);
+      }
     } catch (error) {
       console.error('Error creating course:', error);
     }
@@ -76,6 +80,14 @@ function CourseFormModal({
     }
   };
 
+  useEffect(() => {
+    getAllAuthors().then((data) => {
+      if (data) {
+        setAuthorsList(data);
+      }
+    });
+  }, []);
+
   const createAuthor = async (authorName: string) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_KEY}/authors`, {
@@ -90,21 +102,18 @@ function CourseFormModal({
         throw new Error('Failed to create author');
       }
 
-      const data = await response.json();
+      const data: AuthorProps = await response.json();
       console.log('Author created successfully:', data);
+      return data;
     } catch (error) {
       console.error('Error creating author:', error);
     }
   };
 
-  const deleteAuthor = async (authorName: string) => {
+  const deleteAuthor = async (authorId: string) => {
     try {
-      const authors = await getAllAuthors();
-      const authorToDelete = authors.find(
-        (author: { name: string; id: string }) => author.name === authorName
-      );
       const response = await fetch(
-        `${import.meta.env.VITE_API_KEY}/authors/${authorToDelete?.id}`,
+        `${import.meta.env.VITE_API_KEY}authors/${authorId}`,
         {
           method: 'DELETE',
         }
@@ -113,8 +122,6 @@ function CourseFormModal({
       if (!response.ok) {
         throw new Error('Failed to delete author');
       }
-
-      console.log('Author deleted successfully');
     } catch (error) {
       console.error('Error deleting author:', error);
     }
@@ -125,7 +132,6 @@ function CourseFormModal({
     const newCourse = {
       ...courseInfo,
       id: Math.random().toString(36).substring(2, 9),
-      authors: courseAuthors,
     };
     createCourse(newCourse);
     console.log('New Course Created:', newCourse);
@@ -163,34 +169,42 @@ function CourseFormModal({
             <div>
               <h3 className={styles.authorsSectionTitle}>Authors</h3>
               <AuthorNameInput
-                onCreateAuthor={(authorName) =>
-                  setAuthorsList([...authorsList, authorName])
-                }
+                onCreateAuthor={async (authorName) => {
+                  const author = await createAuthor(authorName);
+                  if (author) {
+                    setAuthorsList([...authorsList, author]);
+                  }
+                }}
               />
               <AuthorsList
                 authors={authorsList}
-                onAddAuthor={(authorName) => {
-                  setCourseAuthors([...courseAuthors, authorName]);
-                  createAuthor(authorName);
+                onAddAuthor={(author: AuthorProps) => {
+                  setCourseInfo({
+                    ...courseInfo,
+                    authors: [...courseInfo.authors, author.id],
+                  });
+                  setAuthorsList(authorsList.filter((a) => a.id !== author.id));
                 }}
-                onRemoveAuthor={(authorName) =>
-                  setAuthorsList(
-                    authorsList.filter((author) => author !== authorName)
-                  )
-                }
+                onRemoveAuthor={(author: AuthorProps) => {
+                  deleteAuthor(author.id);
+                  setAuthorsList(authorsList.filter((a) => a.id !== author.id));
+                }}
               />
             </div>
           </div>
           <div style={{ marginTop: '100px' }}>
             <h3 className={styles.courseAuthorsSectionTitle}>Course Authors</h3>
             <CourseAuthors
-              authors={courseAuthors}
-              onRemoveAuthor={(authorName) => {
-                deleteAuthor(authorName);
-                setCourseAuthors(
-                  courseAuthors.filter((author) => author !== authorName)
-                );
-                setAuthorsList([...authorsList, authorName]);
+              authors={courseInfo.authors}
+              onRemoveAuthor={(authorId: string) => {
+                setCourseInfo({
+                  ...courseInfo,
+                  authors: courseInfo.authors.filter((a) => a !== authorId),
+                });
+                setAuthorsList([
+                  ...authorsList,
+                  { id: authorId, name: authorId },
+                ]);
               }}
             />
           </div>

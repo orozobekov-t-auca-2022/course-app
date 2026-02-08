@@ -23,7 +23,7 @@ function Courses({
   getCourse: (id: string) => Promise<CourseProps>;
 }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [coursesData, setCoursesData] = useState<typeof courses>(courses);
+  const [coursesData, setCoursesData] = useState<CourseProps[]>(courses ?? []);
   const [openCourseForm, setOpenCourseForm] = useState(false);
 
   async function loadCourses() {
@@ -70,7 +70,12 @@ function Courses({
       />
       {openCourseForm && (
         <div className={styles.courseFormModal}>
-          <CourseFormModal setOpenCourseForm={setOpenCourseForm} />
+          <CourseFormModal
+            setOpenCourseForm={setOpenCourseForm}
+            onCourseCreated={(newCourse) => {
+              setCoursesData((prevCourses) => [...prevCourses, newCourse]);
+            }}
+          />
         </div>
       )}
     </div>

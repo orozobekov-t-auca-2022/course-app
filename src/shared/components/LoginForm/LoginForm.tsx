@@ -41,19 +41,23 @@ function LoginForm({ setUserLoggedIn, setCurrentPage }: LoginProps) {
       return;
     }
     try {
-      const response = await fetch(import.meta.env.VITE_DUMMY_AUTH_API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: login,
-          password: password,
-        }),
-      }).then((res) => res.json());
+      const response = await fetch(
+        import.meta.env.VITE_DUMMY_AUTH_API + 'login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: login,
+            password: password,
+          }),
+        }
+      ).then((res) => res.json());
 
       if (response && response.accessToken) {
         setUserLoggedIn(login);
         setCurrentPage({ currentPage: 'coursesList' });
         localStorage.setItem('userLoggedIn', login);
+        localStorage.setItem('userInfo', response);
       } else {
         setErrors({ login: 'Invalid username or password' });
       }
