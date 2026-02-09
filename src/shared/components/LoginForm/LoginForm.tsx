@@ -56,8 +56,8 @@ function LoginForm({ setUserLoggedIn, setCurrentPage }: LoginProps) {
       if (response && response.accessToken) {
         setUserLoggedIn(login);
         setCurrentPage({ currentPage: 'coursesList' });
-        localStorage.setItem('userLoggedIn', login);
-        localStorage.setItem('userInfo', response);
+        localStorage.setItem('accessToken', response.accessToken);
+        localStorage.setItem('userInfo', JSON.stringify(response));
       } else {
         setErrors({ login: 'Invalid username or password' });
       }

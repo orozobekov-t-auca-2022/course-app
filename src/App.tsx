@@ -27,10 +27,10 @@ function App() {
   });
 
   const [userLoggedIn, setUserLoggedIn] = useState<string | null>(() => {
-    if (!localStorage.getItem('userLoggedIn')) {
+    if (!localStorage.getItem('accessToken')) {
       return null;
     }
-    return localStorage.getItem('userLoggedIn');
+    return localStorage.getItem('accessToken');
   });
   const [currentCourseInfo, setCurrentCourseInfo] = useState<CourseProps>({
     id: '',

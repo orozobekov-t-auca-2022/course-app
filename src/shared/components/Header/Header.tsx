@@ -17,14 +17,14 @@ function Header({
     <nav className={styles.header}>
       <Logo />
       <div className={styles.userInfo}>
-        <UserName />
+        <UserName userLoggedIn={userLoggedIn} />
         <CourseButton
           className={styles.button}
           onClick={() => {
             if (userLoggedIn) {
               setUserLoggedIn(null);
-              localStorage.setItem('userLoggedIn', '');
-              localStorage.setItem('userInfo', '');
+              localStorage.removeItem('accessToken');
+              localStorage.removeItem('userInfo');
             } else {
               setCurrentPage({ currentPage: 'login' });
             }
