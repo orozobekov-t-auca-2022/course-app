@@ -5,21 +5,13 @@ import type { CourseProps, CurrentPageProps } from '../../types/types';
 import styles from './CourseInfo.module.css';
 
 function CourseInfo({
-  selectedCourseId,
-  mockCurrentCoursesList,
   setCurrentPage,
   currentCourseInfo,
 }: {
-  selectedCourseId: string | null;
-  mockCurrentCoursesList: typeof import('../../mocks/mockCoursesList').mockCurrentCoursesList;
   setCurrentPage: React.Dispatch<React.SetStateAction<CurrentPageProps>>;
   currentCourseInfo: CourseProps;
 }) {
-  const course = mockCurrentCoursesList.find(
-    (course) => course.id === selectedCourseId
-  );
-
-  if (!course) {
+  if (!currentCourseInfo.id) {
     return null;
   }
 

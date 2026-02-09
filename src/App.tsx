@@ -2,10 +2,6 @@ import './App.css';
 import Courses from './pages/Courses/Courses';
 import Header from './shared/components/Header/Header';
 import './App.css';
-import {
-  mockCurrentCoursesList,
-  mockedCoursesList,
-} from './mocks/mockCoursesList';
 import EmptyCoursesList from './pages/EmptyCoursesList/EmptyCoursesList';
 import { useEffect, useState } from 'react';
 import type { CourseProps, CurrentPageProps } from './types/types';
@@ -19,11 +15,9 @@ function App() {
     currentPage: 'coursesList',
   });
 
-  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
-
   const [courses, setCourses] = useState<CourseProps[]>(() => {
     const storedCourses = localStorage.getItem(STORAGE_KEY);
-    return storedCourses ? JSON.parse(storedCourses) : mockCurrentCoursesList;
+    return storedCourses ? JSON.parse(storedCourses) : [];
   });
 
   const [userLoggedIn, setUserLoggedIn] = useState<string | null>(() => {
@@ -52,7 +46,7 @@ function App() {
   };
 
   const restoreCourse = () => {
-    setCourses(mockedCoursesList);
+    setCourses([]);
   };
 
   const getCourse: (id: string) => Promise<CourseProps> = async (
@@ -62,7 +56,6 @@ function App() {
       `${import.meta.env.VITE_API_KEY}courses/courses/${id}`
     );
     const data = await response.json();
-    setSelectedCourseId(data.id);
     setCurrentPage({ currentPage: 'courseInfo' });
     setCurrentCourseInfo(data);
     return data;
@@ -85,15 +78,12 @@ function App() {
                 {currentPage.currentPage === 'coursesList' ? (
                   <Courses
                     courses={courses}
-                    setSelectedCourseId={setSelectedCourseId}
                     setCurrentPage={setCurrentPage}
                     onDeleteCourse={deleteCourse}
                     getCourse={getCourse}
                   />
                 ) : (
                   <CourseInfo
-                    selectedCourseId={selectedCourseId}
-                    mockCurrentCoursesList={courses}
                     setCurrentPage={setCurrentPage}
                     currentCourseInfo={currentCourseInfo}
                   />

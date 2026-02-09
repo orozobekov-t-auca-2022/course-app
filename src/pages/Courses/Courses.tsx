@@ -12,12 +12,10 @@ import CourseFormModal from '../../shared/components/CourseFormModal/CourseFormM
 
 function Courses({
   courses,
-  setSelectedCourseId,
   setCurrentPage,
   onDeleteCourse,
   getCourse,
 }: CoursesProps & {
-  setSelectedCourseId: React.Dispatch<React.SetStateAction<string | null>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<CurrentPageProps>>;
   onDeleteCourse: (id: string) => void;
   getCourse: (id: string) => Promise<CourseProps>;
@@ -64,7 +62,6 @@ function Courses({
       <CoursesList
         filteredList={filteredList}
         setCurrentPage={setCurrentPage}
-        setSelectedCourseId={setSelectedCourseId}
         onDeleteCourse={onDeleteCourse}
         getCourse={getCourse}
       />
