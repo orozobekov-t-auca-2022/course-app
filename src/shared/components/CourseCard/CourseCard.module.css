@@ -34,4 +34,49 @@
   display: flex;
   flex-direction: column;
   gap: 31px;
+  max-width: 350px;
+}
+
+@media (max-width: 800px) {
+  .course {
+    padding: 15px 20px;
+  }
+
+  .courseContent {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .description {
+    width: 100%;
+  }
+
+  .information {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .course {
+    padding: 12px 15px;
+  }
+
+  .courseContent {
+    gap: 15px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .editButton,
+  .deleteButton,
+  .showCourseButton {
+    width: 100%;
+  }
+
+  .information {
+    gap: 15px;
+  }
 }

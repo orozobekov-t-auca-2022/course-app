@@ -1,9 +1,10 @@
 .coursesList {
-  max-width: 1122px;
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 33px;
+  padding: 0 20px;
 }
 .addCourseButton {
   width: 183px;
@@ -11,6 +12,7 @@
 .controls {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 .courseFormModal{
   background-color: rgba(220, 220, 220, 0.69);
@@ -20,4 +22,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 800px) {
+  .coursesList {
+    max-width: 100%;
+    gap: 20px;
+    padding: 0 15px;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .addCourseButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .coursesList {
+    gap: 15px;
+    padding: 0 10px;
+  }
+
+  .controls {
+    gap: 10px;
+  }
 }

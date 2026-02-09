@@ -11,3 +11,10 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+@media (max-width: 480px) {
+  .infoTitle,
+  .infoValue {
+    font-size: 14px;
+  }
+}

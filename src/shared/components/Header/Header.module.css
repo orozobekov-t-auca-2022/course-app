@@ -29,3 +29,42 @@
 .button {
   width: 140px;
 }
+
+@media (max-width: 800px) {
+  .header {
+    padding: 0 20px;
+  }
+
+  .userInfo {
+    gap: 15px;
+  }
+
+  .button {
+    width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    height: 60px;
+    padding: 0 15px;
+  }
+
+  .logo {
+    width: 80px;
+    height: 35px;
+  }
+
+  .userName {
+    display: none;
+  }
+
+  .userInfo {
+    gap: 10px;
+  }
+
+  .button {
+    width: 80px;
+    font-size: 12px;
+  }
+}
