@@ -1,0 +1,59 @@
+.title {
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: 0px;
+  text-transform: capitalize;
+  width: 96px;
+  flex-shrink: 0;
+}
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  width: 400px;
+  max-width: 100%;
+}
+.infoValue {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (max-width: 800px) {
+  .infoRow {
+    width: 100%;
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 28px;
+    width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .infoRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .title {
+    font-size: 16px;
+    line-height: 24px;
+    width: auto;
+  }
+
+  .infoValue {
+    font-size: 14px;
+    line-height: 18px;
+    width: 100%;
+  }
+}

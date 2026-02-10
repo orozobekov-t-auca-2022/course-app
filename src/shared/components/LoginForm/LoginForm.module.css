@@ -1,0 +1,27 @@
+.button{
+  width: 286px;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 34px
+}
+.error{
+  color: rgba(255, 0, 0, 1);
+}
+
+@media (max-width: 800px) {
+  .button {
+    width: 100%;
+  }
+
+  .form {
+    gap: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    gap: 20px;
+  }
+}

@@ -1,0 +1,56 @@
+.courseInfoPage {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  padding: 0 20px;
+}
+
+.courseInfo,
+.title {
+  max-width: 100%;
+  width: 1122px;
+  margin: 0 auto;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  max-width: 100%;
+  width: 1122px;
+  margin: 0 auto;
+}
+
+.backButton {
+  width: 185px;
+  margin-left: auto;
+}
+
+@media (max-width: 800px) {
+  .courseInfoPage {
+    padding: 0 15px;
+    gap: 15px;
+  }
+
+  .courseInfo,
+  .title,
+  .buttonContainer {
+    width: 100%;
+  }
+
+  .backButton {
+    width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .courseInfoPage {
+    padding: 0 10px;
+    gap: 10px;
+  }
+
+  .backButton {
+    width: 100%;
+    margin: 0;
+  }
+}

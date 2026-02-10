@@ -1,0 +1,43 @@
+.form {
+  display: flex;
+  justify-content: space-between;
+}
+.input {
+  width: 400px;
+}
+.searchButton {
+  width: 148px;
+}
+.addCourseButton {
+  width: 183px;
+}
+.searchField {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 800px) {
+  .form {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  .searchField {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .searchButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchField {
+    gap: 8px;
+  }
+}
