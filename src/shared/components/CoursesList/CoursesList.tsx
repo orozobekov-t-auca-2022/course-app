@@ -11,7 +11,7 @@ function CoursesList({
   getCourse,
 }: { filteredList: CourseProps[] | undefined } & CoursesProps & {
     setCurrentPage: React.Dispatch<React.SetStateAction<CurrentPageProps>>;
-    onDeleteCourse: (id: string) => void;
+    onDeleteCourse: (id: string) => Promise<void>;
     getCourse: (id: string) => Promise<CourseProps>;
   }) {
   return (

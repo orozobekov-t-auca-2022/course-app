@@ -6,7 +6,6 @@ function UserName({ userLoggedIn }: { userLoggedIn: string | null }) {
 
   async function getUserName(): Promise<string> {
     const accessToken = localStorage.getItem('accessToken');
-    console.log('Access Token:', accessToken);
     if (accessToken) {
       try {
         const response = await fetch(

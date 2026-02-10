@@ -140,98 +140,108 @@ function CourseFormModal({
   };
 
   return (
-    <div className={styles.courseForm}>
-      <form className={styles.courseFormContainer} onSubmit={handleSubmit}>
-        <h2 className={styles.courseFormHeader}>Course Edit/Create</h2>
-        <TitleInput
-          onChange={(e) =>
-            setCourseInfo({ ...courseInfo, title: e.target.value })
-          }
-        />
-        <DescriptionInput
-          onChange={(e) =>
-            setCourseInfo({ ...courseInfo, description: e.target.value })
-          }
-        />
-        <div className={styles.durationAndAuthorsContainer}>
-          <div className={styles.durationAndAuthorsInputsContainer}>
-            <div>
-              <h3 className={styles.durationSectionTitle}>Duration</h3>
-              <DurationInput
-                onChange={(e) =>
-                  setCourseInfo({
-                    ...courseInfo,
-                    duration: Number(e.target.value),
-                  })
-                }
-              />
-            </div>
-            <div>
-              <h3 className={styles.authorsSectionTitle}>Authors</h3>
-              <AuthorNameInput
-                onCreateAuthor={async (authorName) => {
-                  const author = await createAuthor(authorName);
-                  if (author) {
-                    setAuthorsList([...authorsList, author]);
-                  }
-                }}
-              />
-              <AuthorsList
-                authors={authorsList}
-                onAddAuthor={(author: AuthorProps) => {
-                  setCourseInfo({
-                    ...courseInfo,
-                    authors: [...courseInfo.authors, author.id],
-                  });
-                  setAuthorsList(authorsList.filter((a) => a.id !== author.id));
-                }}
-                onRemoveAuthor={(author: AuthorProps) => {
-                  deleteAuthor(author.id);
-                  setAuthorsList(authorsList.filter((a) => a.id !== author.id));
-                }}
-              />
-            </div>
-          </div>
-          <div style={{ marginTop: '100px' }}>
-            <h3 className={styles.courseAuthorsSectionTitle}>Course Authors</h3>
-            <CourseAuthors
-              authors={courseInfo.authors}
-              onRemoveAuthor={(authorId: string) => {
-                setCourseInfo({
-                  ...courseInfo,
-                  authors: courseInfo.authors.filter((a) => a !== authorId),
-                });
-                setAuthorsList([
-                  ...authorsList,
-                  { id: authorId, name: authorId },
-                ]);
-              }}
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalWrapper}>
+        <div className={styles.courseForm}>
+          <form className={styles.courseFormContainer} onSubmit={handleSubmit}>
+            <h2 className={styles.courseFormHeader}>Course Edit/Create</h2>
+            <TitleInput
+              onChange={(e) =>
+                setCourseInfo({ ...courseInfo, title: e.target.value })
+              }
             />
-          </div>
+            <DescriptionInput
+              onChange={(e) =>
+                setCourseInfo({ ...courseInfo, description: e.target.value })
+              }
+            />
+            <div className={styles.durationAndAuthorsContainer}>
+              <div className={styles.durationAndAuthorsInputsContainer}>
+                <div>
+                  <h3 className={styles.durationSectionTitle}>Duration</h3>
+                  <DurationInput
+                    onChange={(e) =>
+                      setCourseInfo({
+                        ...courseInfo,
+                        duration: Number(e.target.value),
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <h3 className={styles.authorsSectionTitle}>Authors</h3>
+                  <AuthorNameInput
+                    onCreateAuthor={async (authorName) => {
+                      const author = await createAuthor(authorName);
+                      if (author) {
+                        setAuthorsList([...authorsList, author]);
+                      }
+                    }}
+                  />
+                  <AuthorsList
+                    authors={authorsList}
+                    onAddAuthor={(author: AuthorProps) => {
+                      setCourseInfo({
+                        ...courseInfo,
+                        authors: [...courseInfo.authors, author.id],
+                      });
+                      setAuthorsList(
+                        authorsList.filter((a) => a.id !== author.id)
+                      );
+                    }}
+                    onRemoveAuthor={(author: AuthorProps) => {
+                      deleteAuthor(author.id);
+                      setAuthorsList(
+                        authorsList.filter((a) => a.id !== author.id)
+                      );
+                    }}
+                  />
+                </div>
+              </div>
+              <div style={{ marginTop: '100px' }}>
+                <h3 className={styles.courseAuthorsSectionTitle}>
+                  Course Authors
+                </h3>
+                <CourseAuthors
+                  authors={courseInfo.authors}
+                  onRemoveAuthor={(authorId: string) => {
+                    setCourseInfo({
+                      ...courseInfo,
+                      authors: courseInfo.authors.filter((a) => a !== authorId),
+                    });
+                    setAuthorsList([
+                      ...authorsList,
+                      { id: authorId, name: authorId },
+                    ]);
+                  }}
+                />
+              </div>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                gap: '10px',
+                marginTop: '32px',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <CourseButton
+                className={styles.cancelButton}
+                type={'button'}
+                onClick={() => {
+                  resetCourseInfo();
+                  setOpenCourseForm(false);
+                }}
+              >
+                Cancel
+              </CourseButton>
+              <CourseButton className={styles.createButton} type={'submit'}>
+                Create Course
+              </CourseButton>
+            </div>
+          </form>
         </div>
-        <div
-          style={{
-            display: 'flex',
-            gap: '10px',
-            marginTop: '32px',
-            justifyContent: 'flex-end',
-          }}
-        >
-          <CourseButton
-            className={styles.cancelButton}
-            type={'button'}
-            onClick={() => {
-              resetCourseInfo();
-              setOpenCourseForm(false);
-            }}
-          >
-            Cancel
-          </CourseButton>
-          <CourseButton className={styles.createButton} type={'submit'}>
-            Create Course
-          </CourseButton>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }

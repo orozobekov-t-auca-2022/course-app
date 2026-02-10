@@ -3,22 +3,18 @@ import Courses from './pages/Courses/Courses';
 import Header from './shared/components/Header/Header';
 import './App.css';
 import EmptyCoursesList from './pages/EmptyCoursesList/EmptyCoursesList';
+import CourseFormModal from './shared/components/CourseFormModal/CourseFormModal';
 import { useEffect, useState } from 'react';
 import type { CourseProps, CurrentPageProps } from './types/types';
 import CourseInfo from './pages/CourseInfo/CourseInfo';
 import Login from './pages/Login/Login';
-
-const STORAGE_KEY = 'courses';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<CurrentPageProps>({
     currentPage: 'coursesList',
   });
 
-  const [courses, setCourses] = useState<CourseProps[]>(() => {
-    const storedCourses = localStorage.getItem(STORAGE_KEY);
-    return storedCourses ? JSON.parse(storedCourses) : [];
-  });
+  const [courses, setCourses] = useState<CourseProps[]>([]);
 
   const [userLoggedIn, setUserLoggedIn] = useState<string | null>(() => {
     if (!localStorage.getItem('accessToken')) {
@@ -34,19 +30,49 @@ function App() {
     duration: 0,
     creationDate: '',
   });
+  const [openCourseForm, setOpenCourseForm] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
-  }, [courses]);
+    if (userLoggedIn) {
+      loadCourses();
+    }
+  }, [userLoggedIn]);
 
-  const deleteCourse = (id: string) => {
-    setCourses((prevCourses) =>
-      prevCourses.filter((course) => course.id !== id)
-    );
+  const loadCourses = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_KEY}courses/courses`
+      );
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error('Error loading courses:', error);
+    }
   };
 
-  const restoreCourse = () => {
-    setCourses([]);
+  const deleteCourse = async (id: string) => {
+    const courseToDelete = courses.find((course) => course.id === id);
+    if (!courseToDelete) return;
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_KEY}courses/courses/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to delete course');
+      }
+
+      setCourses((prevCourses) =>
+        prevCourses.filter((course) => course.id !== id)
+      );
+    } catch (error) {
+      console.error('Error deleting course:', error);
+      alert('Failed to delete course. Please try again.');
+    }
   };
 
   const getCourse: (id: string) => Promise<CourseProps> = async (
@@ -72,7 +98,7 @@ function App() {
         {userLoggedIn ? (
           <>
             {courses.length === 0 ? (
-              <EmptyCoursesList onRestore={restoreCourse} />
+              <EmptyCoursesList onAddCourse={() => setOpenCourseForm(true)} />
             ) : (
               <>
                 {currentPage.currentPage === 'coursesList' ? (
@@ -81,6 +107,7 @@ function App() {
                     setCurrentPage={setCurrentPage}
                     onDeleteCourse={deleteCourse}
                     getCourse={getCourse}
+                    onAddCourse={() => setOpenCourseForm(true)}
                   />
                 ) : (
                   <CourseInfo
@@ -89,6 +116,14 @@ function App() {
                   />
                 )}
               </>
+            )}
+            {openCourseForm && (
+              <CourseFormModal
+                setOpenCourseForm={setOpenCourseForm}
+                onCourseCreated={(newCourse) => {
+                  setCourses((prevCourses) => [...prevCourses, newCourse]);
+                }}
+              />
             )}
           </>
         ) : (

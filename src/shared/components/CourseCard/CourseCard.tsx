@@ -14,7 +14,7 @@ function CourseCard({
   onClick,
   onDeleteCourse,
 }: CourseProps & { onClick?: () => void } & {
-  onDeleteCourse: (id: string) => void;
+  onDeleteCourse: (id: string) => Promise<void>;
 }) {
   const loadAuthor = async (authorId: string) => {
     const response = await fetch(

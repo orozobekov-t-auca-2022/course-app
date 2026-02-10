@@ -4,3 +4,7 @@
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
 }
+
+body{
+  background-color: rgba(220, 220, 220, 1);
+}
